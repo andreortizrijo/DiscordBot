@@ -1,0 +1,28 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "Its a Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreortizrijo/DiscordBot.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "Stream"
+  ],
+  "author": "Tomas1207 / Andre Rizo",
+  "license": "GNU",
+  "bugs": {
+    "url": "https://github.com/andreortizrijo/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/andreortizrijo/DiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "discordjs-command": "^0.9.1"
+  }
+}
