@@ -1,5 +1,9 @@
-const { Client, Attachment,RichEmbed  } = require('discord.js');
-
+const {
+  Client,
+  Attachment,
+  RichEmbed
+} = require('discord.js');
+const TwichtBot = require('./BOTS/twitchAPI/twitch')
 // Create an instance of a Discord client
 const client = new Client();
 
@@ -10,24 +14,30 @@ const client = new Client();
 client.on('ready', () => {
   console.log('I am ready!');
 
-  console.log(client.guilds[0])
+  //console.log(client.guilds);
+  const twichtBot = new TwichtBot(client);
+  twichtBot.getTopGames();
+  twichtBot.getUsers();
 });
 
 client.on('message', message => {
-    // If the message is "how to embed"
-    if (message.content === 'how to embed') {
-      // We can create embeds using the MessageEmbed constructor
-      // Read more about all that you can do with the constructor
-      // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
-      const embed = new RichEmbed()
-        // Set the title of the field
-        .setTitle('A slick little embed')
-        // Set the color of the embed
-        .setColor(0xFF0000)
-        // Set the main content of the embed
-        .setDescription('Hello, this is a slick embed!' + message.author);
-      // Send the embed to the same channel as the message
-      message.channel.send(embed);
-    }
-  });
+  // If the message is "how to embed"
+  if (message.content === 'how to embed') {
+    // We can create embeds using the MessageEmbed constructor
+    // Read more about all that you can do with the constructor
+    // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
+    const embed = new RichEmbed()
+      // Set the title of the field
+      .setTitle('A slick little embed')
+      // Set the color of the embed
+      .setColor(0xFF0000)
+      // Set the main content of the embed
+      .setDescription('Hello, this is a slick embed!' + message.author);
+    // Send the embed to the same channel as the message
+    message.channel.send(embed);
+  }
+});
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.on("debug", (e) => console.info(e));
 client.login('NjA0NzU2MjA1MzM2MDAyNjEz.XamDDA.0BBxi7u4YW9U1WC7cyW_Tr5TeWs');
