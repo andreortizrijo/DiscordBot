@@ -9,6 +9,8 @@ const client = new Client();
  */
 client.on('ready', () => {
   console.log('I am ready!');
+
+  console.log(client.guilds[0])
 });
 
 client.on('message', message => {
