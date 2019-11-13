@@ -6,13 +6,20 @@ module.exports = class InviteBot{
     this.client = client;
   }
 
-  async replyWithInvite(message) {
+  async replyWithInvite(message, user) {
+    
+    console.log(user.username);
+
+    // for (var [key] of message.mentions.users) {
+    //   console.log(message.mentions.users.get(key).username);
+    // }
+    
     let invite = await message.channel.createInvite({
       maxAge: 0, //maximum time for the invite, in milliseconds
       maxUses: 0, //maximum times it can be used. 0 will set to an infinite number of times used
       unique: true //true force the creation of a new link every time the comand runs
-    }, `Requested with command by ${message.author.tag}`).catch(console.log);
+    }).catch(console.log);
   
-    message.reply(invite ? `Here's your invite: ${invite}` : "There has been an error during the creation of the invite.");
+    user.send(invite ? `Here's your invite: ${invite}` : "There has been an error during the creation of the invite.");
   }
 }

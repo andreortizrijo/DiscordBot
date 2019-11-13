@@ -1,20 +1,20 @@
 const { Client, Attachment,RichEmbed,DMChannel  } = require('discord.js');
+const InviteBot = require('../invite/createInvite.js');
+
+let inviteBot = null;
+let user = null;
 
 module.exports = class PmBot{
 
   constructor(client){
     this.client = client;
+    inviteBot = new InviteBot(client);
   }
 
   async sendPrivateMessage(message) {
-    const embed = new RichEmbed()
-      .setTitle('A slick little embed')
-      .setColor(0xFF0000)
-      .setDescription('Hello, this is a slick embed!' + message.author);
-
     for (var [key] of message.mentions.users) {
-      message.mentions.users.get(key).send(embed);
+      user = message.mentions.users.get(key);
+      await inviteBot.replyWithInvite(message, user);
     }
   }
-
 };
