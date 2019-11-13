@@ -20,14 +20,20 @@ module.exports = class CreateChannelCommand extends commando.Command {
 					label: 'channel name',
 					prompt: 'What would you like the channel to be called?',
 					type: 'string'
+				},
+				{
+					key: 'type',
+					label: 'channel type',
+					prompt: 'What would you like the channel to be called?',
+					type: 'string'
 				}
 			]
 		});
 	}
 
-	async run(msg, { name }) {
-		const channel = await msg.guild.createChannel(name, { type: 'text' });
-		msg.guild.setChannelPosition(channel,4);
+	async run(msg, { name , type }) {
+		const channel = await msg.guild.createChannel(name, { type: type });
+		msg.guild.setChannelPosition(channel);
 		return msg.reply(`Created ${channel} (${channel.id})`);
 	}
 };
