@@ -27,15 +27,10 @@ client.on('message', message => {
     }
 
     if (message.content.startsWith('!pm')) {
-     pmBot.sendPrivateMessage(message);
+        pmBot.sendPrivateMessage(message);
     }
 
     if(message.content.startsWith('!kick')){
-        // console.log(let member = message.mentions.members.first());
-        // Kick a member
-        // member.kick()
-        // .then(() => console.log(`Kicked ${member.displayName}`))
-        // .catch(console.error);
         bandandkickBot.memberKick(message);
     }
 });
