@@ -1,11 +1,10 @@
 const { Client, Attachment,RichEmbed  } = require('discord.js');
-const InviteBot = require('./BOTS/invite/createInvite.js');
 const PMBot = require('./BOTS/pm/sendPM.js');
 const BandAndKick = require('./BOTS/Ban&Kick/band_kick.js');
 
 // Create an instance of a Discord client
 const client = new Client();
-let inviteBot = null;
+
 let pmBot = null;
 let bandandkickBot = null;
 
@@ -15,18 +14,14 @@ let bandandkickBot = null;
  */
 client.on('ready', () => {
     console.log('I am ready!');
-
-    inviteBot = new InviteBot(client);
+    
+    //Bots Initialization
     pmBot = new PMBot(client);
     bandandkickBot = new BandAndKick(client);
 });
 
 client.on('message', message => {
-    if (message.content === '!create invite'){
-        inviteBot.replyWithInvite(message);
-    }
-
-    if (message.content.startsWith('!pm')) {
+    if (message.content.startsWith('!create invite')){
         pmBot.sendPrivateMessage(message);
     }
 
