@@ -1,10 +1,8 @@
 const { Client, Attachment,RichEmbed  } = require('discord.js');
-const InviteBot = require('./BOTS/invite/createInvite.js')
-const PMBot = require('./BOTS/pm/sendPM.js')
+const PMBot = require('./BOTS/pm/sendPM.js');
 
 // Create an instance of a Discord client
 const client = new Client();
-let inviteBot = null;
 let pmBot = null;
 
 /**
@@ -13,16 +11,11 @@ let pmBot = null;
  */
 client.on('ready', () => {
   console.log('I am ready!');
-  inviteBot = new InviteBot(client);
   pmBot = new PMBot(client);
 });
 
 client.on('message', message => {
-  if (message.content === '!create invite'){
-    inviteBot.replyWithInvite(message);
-  }
-  
-  if (message.content.startsWith('!pm')) {
+  if (message.content.startsWith('!create invite')){
     pmBot.sendPrivateMessage(message);
   }
 });
