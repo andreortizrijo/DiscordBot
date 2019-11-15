@@ -28,6 +28,10 @@ client.on('message', message => {
     if(message.content.startsWith('!kick')){
         bandandkickBot.memberKick(message);
     }
+
+    if(message.content.startsWith('!ban')){
+        bandandkickBot.memberBan(message);
+    }
 });
 
 client.login('NjA0NzU2MjA1MzM2MDAyNjEz.XamDDA.0BBxi7u4YW9U1WC7cyW_Tr5TeWs');
