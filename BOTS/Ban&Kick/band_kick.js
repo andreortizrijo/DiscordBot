@@ -9,12 +9,15 @@ module.exports = class BandAndKick{
     }
 
     async memberKick(message) {
-        await message.mentions.members.forEach(function(value, key) {
-            memberList.push(key,value);
+        await message.mentions.members.forEach(function(value) {
+            //Só precisa de receber o valeu, pois contem o(s) member(s) que vão ser banidos
+            memberList.push(value);
         });
 
-        for (let i = 1; i < memberList.length; i++) {
+        for (let i = 0; i < memberList.length; i++) {
             message.guild.member(memberList[i]).kick().then(() => message.reply(`Kicked ${memberList[i].displayName}`)).catch(console.error);
         }
+
+        memberList = [];
     }
 };
