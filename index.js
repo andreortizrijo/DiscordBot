@@ -5,6 +5,9 @@ const BandAndKick = require('./BOTS/Ban&Kick/band_kick.js');
 // Create an instance of a Discord client
 const client = new Client();
 
+let regex = /( \d+)/
+let match = '';
+
 let pmBot = null;
 let bandandkickBot = null;
 
@@ -30,7 +33,14 @@ client.on('message', message => {
     }
 
     if(message.content.startsWith('!ban')){
-        bandandkickBot.memberBan(message);
+        let matches = message.content.match(regex);
+        
+        if (matches) { 
+            match = matches[0];
+            match = match.replace(/\s/g, "");
+        }
+        
+        bandandkickBot.memberBan(message, match);
     }
 });
 
