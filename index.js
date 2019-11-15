@@ -1,4 +1,8 @@
-const { Client, Attachment,RichEmbed  } = require('discord.js');
+const {
+    Client,
+    Attachment,
+    RichEmbed
+} = require('discord.js');
 const TwichtBot = require('./BOTS/twitchAPI/twitch')
 const InviteBot = require('./BOTS/invite/createInvite.js')
 const PMBot = require('./BOTS/pm/sendPM.js')
@@ -13,26 +17,26 @@ let pmBot = null;
  * received from Discord
  */
 client.on('ready', () => {
-  console.log('I am ready!');
-  inviteBot = new InviteBot(client);
-  pmBot = new PMBot(client);
+    console.log('I am ready!');
+    inviteBot = new InviteBot(client);
+    pmBot = new PMBot(client);
 
-  //console.log(client.guilds);
-  const twichtBot = new TwichtBot(client);
-  twichtBot.getTopGames();
-  twichtBot.getUsers();
+    //console.log(client.guilds);
+    const twichtBot = new TwichtBot(client);
+    twichtBot.getTopGames();
+    twichtBot.getUsers();
 });
 
 
 
 client.on('message', message => {
-  if (message.content === '!create invite'){
-    inviteBot.replyWithInvite(message);
-  }
-  
-  if (message.content.startsWith('!pm')) {
-    pmBot.sendPrivateMessage(message);
-  }
+    if (message.content === '!create invite') {
+        inviteBot.replyWithInvite(message);
+    }
+
+    if (message.content.startsWith('!pm')) {
+        pmBot.sendPrivateMessage(message);
+    }
 });
 
 client.on("error", (e) => console.error(e));
