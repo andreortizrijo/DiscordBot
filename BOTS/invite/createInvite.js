@@ -7,13 +7,6 @@ module.exports = class InviteBot{
   }
 
   async replyWithInvite(message, user) {
-    
-    console.log(user.username);
-
-    // for (var [key] of message.mentions.users) {
-    //   console.log(message.mentions.users.get(key).username);
-    // }
-    
     let invite = await message.channel.createInvite({
       maxAge: 0, //maximum time for the invite, in milliseconds
       maxUses: 0, //maximum times it can be used. 0 will set to an infinite number of times used

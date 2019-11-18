@@ -8,6 +8,7 @@ module.exports = class PmBot{
 
   constructor(client){
     this.client = client;
+    
     inviteBot = new InviteBot(client);
   }
 
