@@ -24,10 +24,12 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    // Create a new Invitation
     if (message.content.startsWith('!create invite')){
         pmBot.sendPrivateMessage(message);
     }
 
+    // Punishment Commands
     if(message.content.startsWith('!kick')){
         bandandkickBot.memberKick(message);
     }
@@ -38,6 +40,8 @@ client.on('message', message => {
         if (matches) { 
             match = matches[0];
             match = match.replace(/\s/g, "");
+        }else{
+            match = 0;
         }
         
         bandandkickBot.memberBan(message, match);

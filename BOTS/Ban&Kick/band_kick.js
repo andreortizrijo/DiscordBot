@@ -27,8 +27,8 @@ module.exports = class BandAndKick{
         });
 
         for (let i = 0; i < memberList.length; i++) {
-            message.reply(`Banned ${memberList[i].displayName} by ${xdays} day(s)`).catch(console.error);
-            await message.guild.member(memberList[i]).ban(memberList[i],{ days: xdays, reason: 'He needed to go' });
+            message.reply(`Banned ${memberList[i].displayName}  ${(xdays != 0) ? "by " + xdays + " day(s)!" : "Forever!"}`).catch(console.error);
+            await message.guild.member(memberList[i]).ban(memberList[i],{ days: xdays, reason: 'He desrespected the community' });
         }
 
         memberList = [];
