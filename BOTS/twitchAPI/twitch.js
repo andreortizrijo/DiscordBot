@@ -24,8 +24,9 @@ module.exports = class TwichtBot {
             twitchResponse.data = "ERRO"
         }
         console.log(twitchResponse.data);
+        await channel.send(setEmbed(setstringsTostreams, twitchResponse, "My Streamers"));
     }
-    async getUsers(channel) {
+    async getTopUsers(channel) {
 
         let twitchResponse = await axios.get(url + 'streams');
 
