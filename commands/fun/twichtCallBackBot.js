@@ -1,41 +1,41 @@
 const commando = require('discord.js-commando');
-const TwichtBot = require('./../../BOTS/twitchAPI/twitch');
+let TwichtBot = require('./../../BOTS/twitchAPI/twitch');
 
-module.exports = class CreateChannelCommand extends commando.Command {
+module.exports = class StreamCommand extends commando.Command {
+    /**
+     * 
+     * @param {commando} client 
+     */
     constructor(client) {
         super(client, {
-            name: 'Add-Streamer',
-            aliases: ['Add-Streamer', 'AS'],
+            name: 'add-streamer',
+            aliases: ['add-streamer', 'as'],
             group: 'fun',
-            memberName: 'create-channel',
-            description: 'Creates a channel.',
-            examples: ['create-channel Test channel'],
+            memberName: 'add-streamer',
+            description: 'add-streamers',
+            examples: ['add-streamer as as'],
             guildOnly: true,
-            clientPermissions: ['MANAGE_CHANNELS'],
-            userPermissions: ['MANAGE_CHANNELS'],
-
-            args: [{
-                key: 'name',
-                label: 'channel name',
-                prompt: 'What would you like the channel to be called?',
-                type: 'string'
-            },
-            {
-                key: 'type',
-                label: 'channel type',
-                prompt: 'What would you like the channel to be called?',
-                type: 'string'
-            }
+            args: [
+                {
+                    key: 'user',
+                    prompt: 'Which user do you want to send the DM to?',
+                    infinite: true,
+                    type: 'string'
+                }
             ]
         });
+        TwichtBot = new TwichtBot(client);
     }
+    /**
+     * 
+     * @param {client.Message} msg 
+     * @param {user} Nome 
+     */
+    async run(msg, { user }) {
 
-    async run(msg, {
-        name,
-        type
-    }) {
 
-        TwichtBot = new TwichtBot(this.client);
-        TwichtBot.getTopGames();
+        console.log(user)
+
+        TwichtBot.addStremer(msg.channel, user);
     }
 };

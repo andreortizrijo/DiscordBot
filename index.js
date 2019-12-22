@@ -3,10 +3,10 @@ const {
   Attachment,
   RichEmbed
 } = require('discord.js');
-const TwichtBot = require('./BOTS/twitchAPI/twitch')
 const Commando = require('discord.js-commando');
 const PMBot = require('./BOTS/pm/sendPM.js');
 const BandAndKick = require('./BOTS/Ban&Kick/band_kick.js');
+
 let regex = /( \d+)/
 let match = '';
 
@@ -23,26 +23,11 @@ const client = new Commando.CommandoClient({
  */
 client.on('ready', () => {
   console.log('I am ready!');
-  inviteBot = new InviteBot(client);
   pmBot = new PMBot(client);
   bandandkickBot = new BandAndKick(client);
   //console.log(client.guilds);
-  const twichtBot = new TwichtBot(client);
-  twichtBot.getTopGames();
-  twichtBot.getUsers();
 });
 
-
-
-client.on('message', message => {
-  if (message.content === '!create invite') {
-    inviteBot.replyWithInvite(message);
-  }
-
-  if (message.content.startsWith('!pm')) {
-    pmBot.sendPrivateMessage(message);
-  }
-});
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));

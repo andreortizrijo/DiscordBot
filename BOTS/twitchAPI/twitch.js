@@ -13,18 +13,20 @@ module.exports = class TwichtBot {
     //Discord Commands need
     constructor(client) {
         this.client = client;
-        //console.log(getServers(client));
-        var channel = this.client.guilds.get("567029802155114529").channels.find(channel => channel.name === "twicht_test");
-        console.log(channel);
-
-        if (channel == null) {
-            client.guilds.get("567029802155114529").createChannel("Twicht_Test", "text")
-        }
-        this.channel = channel;
-
     }
+    async addStremer(channel, Nome) {
+        let ResolvedNames = BuilderNames(Nome);
+        let twitchResponse;
+        try {
+            twitchResponse = await axios.get(url + 'streams?user_login=' + ResolvedNames);
+        } catch (error) {
+            console.log(error);
+            twitchResponse.data = "ERRO"
+        }
+        console.log(twitchResponse.data);
+    }
+    async getUsers(channel) {
 
-    async getUsers() {
         let twitchResponse = await axios.get(url + 'streams');
 
         var gamesList = []
@@ -36,27 +38,13 @@ module.exports = class TwichtBot {
         for (let index = 1; index < gamesList.length; index++) {
             gamesID = gamesID + '&id=' + gamesList[index]
         }
-        var gg = await axios.get(url + 'games?' + gamesID);
-        //console.log(gg.data.data);
-        // Set the title of the field
-
-
-        var channel = this.client.guilds.get("567029802155114529").channels.find(channel => channel.name === "testes"); //Remover Hard Code VARS
-        //console.log(channel);
 
         await channel.send(setEmbed(setstringsTostreams, twitchResponse, "Top Streams on Twitch"));
 
     };
 
-    async getTopGames() {
+    async getTopGames(channel) {
         const gg = await axios.get(url + 'games/top');
-        //console.log(gg.data.data);
-        // Set the title of the field
-
-        let list = getServers(this.client);
-        //console.log(list["Streamz"]);
-
-        var channel = this.client.guilds.get(list["Streamz"]).channels.find(channel => channel.name === "testes");
 
         await channel.send(setEmbed(setstringsTogames, gg, "Top Games on Twitch"))
     }
@@ -73,28 +61,18 @@ setEmbed = function (srtingFunction, response, title) {
     return embed;
 }
 
-/**
- * @param {discord} client
- * @returns {discord.guild}
- */
-getServers = function (client) {
-    let ListOfServes = [];
-    for (var [key, value] of client.guilds) {
-        ListOfServes[value] = key;
-    }
-    return ListOfServes;
-}
 
-/**
- * @param {discord} client
- * @returns {int}
- */
-getServersLenght = function (client) {
-    var index = 0;
-    for (var key of client.guilds) {
-        index++;
+
+BuilderNames = function (Nome) {
+    var Bluidednames = "";
+    for (let index = 0; index < Nome.length; index++) {
+        const element = Nome[index];
+        Bluidednames = Bluidednames + element + "&user_login=";
     }
-    return index;
+    let ResolvedNames = Bluidednames.substr(0, Bluidednames.length - 12);
+    console.log("> Resolved Names =" + ResolvedNames);
+
+    return ResolvedNames;
 }
 /**
  * @param {AxiosResponse} games 
