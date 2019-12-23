@@ -21,9 +21,9 @@ module.exports = class TwichtBot {
             twitchResponse = await axios.get(url + 'streams?user_login=' + ResolvedNames);
         } catch (error) {
             console.log(error);
-            twitchResponse.data = "ERRO"
+            //twitchResponse.data = "ERRO"
         }
-        console.log(twitchResponse.data);
+        //sconsole.log(twitchResponse.data);
         await channel.send(setEmbed(setstringsTostreams, twitchResponse, "My Streamers"));
     }
     async getTopUsers(channel) {
@@ -52,12 +52,19 @@ module.exports = class TwichtBot {
 }
 setEmbed = function (srtingFunction, response, title) {
     var embed = new discord.RichEmbed();
+    console.log("-------------------- LOG From Response -------------------------");
+    console.log(response.data);
+
+    var url = setUrlImage(response);
+
+    console.log('>URL From SetUrlImage(' + url + ')')
     embed.setTitle(title)
         // Set the color of the embed
-        .setColor(0x6441a5);
+        .setColor(0x6441a5)
+        .setThumbnail(url);
 
     embed.setDescription("***" + srtingFunction(response) + "***")
-
+    console.log(embed);
 
     return embed;
 }
@@ -71,9 +78,23 @@ BuilderNames = function (Nome) {
         Bluidednames = Bluidednames + element + "&user_login=";
     }
     let ResolvedNames = Bluidednames.substr(0, Bluidednames.length - 12);
-    console.log("> Resolved Names =" + ResolvedNames);
+    //console.log("> Resolved Names =" + ResolvedNames);
 
     return ResolvedNames;
+}
+
+/**
+ * @param {AxiosResponse} Data 
+ */
+setUrlImage = function (Data) {
+    var goodData = Data.data;
+    var width = 300, height = 300;
+    for (let index = 0; index < goodData.data.length; index++) {
+        const element = goodData.data[index];
+        let imageURL = element.thumbnail_url;
+        imageURL = imageURL.replace("{width}", width).replace("{height}", height);
+        return imageURL;
+    }
 }
 /**
  * @param {AxiosResponse} games 
