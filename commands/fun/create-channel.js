@@ -1,5 +1,4 @@
 const commando = require('discord.js-commando');
-const discord = require('discord.js');
 
 module.exports = class CreateChannelCommand extends commando.Command {
 	constructor(client) {
